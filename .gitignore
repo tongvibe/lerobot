@@ -6,6 +6,7 @@ wandb
 # Data
 data
 outputs
+outputs_train
 
 # Apple
 .DS_Store
