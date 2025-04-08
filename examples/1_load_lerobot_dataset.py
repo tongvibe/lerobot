@@ -47,7 +47,7 @@ pprint(repo_ids)
 # https://huggingface.co/datasets?other=LeRobot
 
 # Let's take this one for this example
-repo_id = "lerobot/aloha_mobile_cabinet"
+repo_id = "Loki0929/so100_duck_v20"
 # We can have a look and fetch its metadata to know more about it:
 ds_meta = LeRobotDatasetMetadata(repo_id)
 
