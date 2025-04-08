@@ -321,43 +321,44 @@ def get_safe_version(repo_id: str, version: str | packaging.version.Version) -> 
     Returns the version if available on repo or the latest compatible one.
     Otherwise, will throw a `CompatibilityError`.
     """
-    target_version = (
-        packaging.version.parse(version) if not isinstance(version, packaging.version.Version) else version
-    )
-    hub_versions = get_repo_versions(repo_id)
+    # target_version = (
+    #     packaging.version.parse(version) if not isinstance(version, packaging.version.Version) else version
+    # )
+    # hub_versions = get_repo_versions(repo_id)
 
-    if not hub_versions:
-        raise RevisionNotFoundError(
-            f"""Your dataset must be tagged with a codebase version.
-            Assuming _version_ is the codebase_version value in the info.json, you can run this:
-            ```python
-            from huggingface_hub import HfApi
+    # if not hub_versions:
+    #     raise RevisionNotFoundError(
+    #         f"""Your dataset must be tagged with a codebase version.
+    #         Assuming _version_ is the codebase_version value in the info.json, you can run this:
+    #         ```python
+    #         from huggingface_hub import HfApi
 
-            hub_api = HfApi()
-            hub_api.create_tag("{repo_id}", tag="_version_", repo_type="dataset")
-            ```
-            """
-        )
+    #         hub_api = HfApi()
+    #         hub_api.create_tag("{repo_id}", tag="_version_", repo_type="dataset")
+    #         ```
+    #         """
+    #     )
 
-    if target_version in hub_versions:
-        return f"v{target_version}"
+    # if target_version in hub_versions:
+    #     return f"v{target_version}"
 
-    compatibles = [
-        v for v in hub_versions if v.major == target_version.major and v.minor <= target_version.minor
-    ]
-    if compatibles:
-        return_version = max(compatibles)
-        if return_version < target_version:
-            logging.warning(f"Revision {version} for {repo_id} not found, using version v{return_version}")
-        return f"v{return_version}"
+    # compatibles = [
+    #     v for v in hub_versions if v.major == target_version.major and v.minor <= target_version.minor
+    # ]
+    # if compatibles:
+    #     return_version = max(compatibles)
+    #     if return_version < target_version:
+    #         logging.warning(f"Revision {version} for {repo_id} not found, using version v{return_version}")
+    #     return f"v{return_version}"
 
-    lower_major = [v for v in hub_versions if v.major < target_version.major]
-    if lower_major:
-        raise BackwardCompatibilityError(repo_id, max(lower_major))
+    # lower_major = [v for v in hub_versions if v.major < target_version.major]
+    # if lower_major:
+    #     raise BackwardCompatibilityError(repo_id, max(lower_major))
 
-    upper_versions = [v for v in hub_versions if v > target_version]
-    assert len(upper_versions) > 0
-    raise ForwardCompatibilityError(repo_id, min(upper_versions))
+    # upper_versions = [v for v in hub_versions if v > target_version]
+    # assert len(upper_versions) > 0
+    # raise ForwardCompatibilityError(repo_id, min(upper_versions))
+    return "main"
 
 
 def get_hf_features_from_features(features: dict) -> datasets.Features:
