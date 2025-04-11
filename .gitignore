@@ -22,7 +22,7 @@ data
 outputs
 Loki_so100_v20
 Loki0929_so100_duck_v20_full_parquet_with_images
-ROOT/
+openpi
 
 # Apple
 .DS_Store
